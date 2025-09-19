@@ -1,0 +1,63 @@
+import cosas.*
+import camion.*
+
+describe "name" {
+  test "Carga y descargar a bumblebee y knightRider" {
+    camion.cargar(bumblebee)
+    assert.equals(#{bumblebee}, camion.cosas())
+    camion.cargar(knightRider)
+    assert.equals(#{bumblebee,knightRider }, camion.cosas())
+    camion.descargar(bumblebee)
+    assert.equals(#{knightRider}, camion.cosas())
+    assert.throwsException({ camion.cargar(knightRider) })
+    assert.throwsException({ camion.descargar(bumblebee) })
+  }
+
+  test "Test de todoPesoEsPar con bumblebee y arena a granel" {
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    assert.that(camion.todoPesoEsPar())
+    arenaAGranel.peso(51)
+    assert.notThat(camion.todoPesoEsPar())
+  }
+  test "Tiene una cosa con un peso dado" {
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    assert.that(camion.tieneUnaCosaConPeso(50))
+    assert.that(camion.tieneUnaCosaConPeso(800))
+    assert.notThat(camion.tieneUnaCosaConPeso(500))
+  }
+  test "Si el camion esta o no escedido de peso, primeo con 300 y despues con 400 ladrillos mas bee" {
+    camion.cargar(bumblebee)
+    paqueteDeLadrillos.cantLadrillos(300)
+    camion.cargar(paqueteDeLadrillos)
+    assert.equals(2400, camion.pesoTotal())
+    assert.notThat(camion.estaExcedidoDePeso())
+    paqueteDeLadrillos.cantLadrillos(400)
+    assert.equals(2600, camion.pesoTotal())
+    assert.that(camion.estaExcedidoDePeso())
+  }
+  test "description" {
+    bumblebee.tranformacion(auto)
+    camion.cargar(bumblebee)
+    camion.cargar(bateriaAntiAerea)
+    camion.cargar(residuosRadioactivos)
+   
+    assert.equals(bateriaAntiAerea, camion.contieneAlgoConPeligrosidad(0))
+    assert.equals(bumblebee, camion.contieneAlgoConPeligrosidad(15))
+    assert.equals(residuosRadioactivos, camion.contieneAlgoConPeligrosidad(200))
+    assert.throwsException({ camion.contieneAlgoConPeligrosidad(30)  })
+    
+    bumblebee.tranformacion(robot)
+    assert.equals(bumblebee, camion.contieneAlgoConPeligrosidad(30))
+
+    bateriaAntiAerea.tieneMisiles(true)
+    assert.equals(bateriaAntiAerea, camion.contieneAlgoConPeligrosidad(100))
+
+  }
+
+}
+
+
+
+  
