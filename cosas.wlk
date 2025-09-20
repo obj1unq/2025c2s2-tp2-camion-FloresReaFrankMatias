@@ -1,6 +1,6 @@
 object knightRider {
 	method peso() { return 500 }
-	method nivelPeligrosidad() { return 10 }
+	method nivelDePeligrosidad() { return 10 }
 }
 
 
@@ -17,7 +17,7 @@ object arenaAGranel {
 
 
 object bumblebee {
-	var property tranformacion = null
+	var property tranformacion = auto
 	method peso() { return 800 }
 	method nivelDePeligrosidad() {
 		return if (self.estaTransformadoEn(auto)) 15

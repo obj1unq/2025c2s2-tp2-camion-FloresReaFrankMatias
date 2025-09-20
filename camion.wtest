@@ -55,6 +55,19 @@ describe "name" {
     assert.equals(bateriaAntiAerea, camion.contieneAlgoConPeligrosidad(100))
 
   }
+  test "Cosas Peligrosas" {
+    camion.cargar(knightRider)
+    camion.cargar(bateriaAntiAerea)
+    bateriaAntiAerea.tieneMisiles(true)
+
+    assert.equals(#{bateriaAntiAerea}, camion.cosasConPeligrosidadMayorA(15))
+    assert.equals(#{bateriaAntiAerea}, camion.cosasMasPeligrosasqQueLaCosa(bumblebee))
+    
+    assert.equals(#{knightRider,bateriaAntiAerea}, camion.cosasConPeligrosidadMayorA(2))
+    assert.equals(#{knightRider,bateriaAntiAerea}, camion.cosasMasPeligrosasqQueLaCosa(paqueteDeLadrillos) )
+    assert.notEquals({}, camion.cosasConPeligrosidadMayorA(200))
+    assert.notEquals({}, camion.cosasMasPeligrosasqQueLaCosa(residuosRadioactivos))
+  }
 
 }
 
