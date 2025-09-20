@@ -69,6 +69,39 @@ describe "name" {
     assert.notEquals({}, camion.cosasMasPeligrosasqQueLaCosa(residuosRadioactivos))
   }
 
+  test "Puede circular En Ruta" {
+    bumblebee.tranformacion(auto)
+    camion.cargar(bumblebee)
+    paqueteDeLadrillos.cantLadrillos(300)
+    camion.cargar(paqueteDeLadrillos)
+
+    assert.that(camion.puedeCircularEnRuta(20))
+    
+    paqueteDeLadrillos.cantLadrillos(400)
+    assert.notThat(camion.puedeCircularEnRuta(20))
+
+    bumblebee.tranformacion(robot)
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+
+test "embalaje y contenedor" {
+    assert.equals(100, contenedorPortuario.peso())
+    assert.equals(0, contenedorPortuario.nivelDePeligrosidad())
+    
+    contenedorPortuario.cargar(knightRider)
+    contenedorPortuario.cargar(arenaAGranel)
+    assert.equals(650, contenedorPortuario.peso())
+    assert.equals(10, contenedorPortuario.nivelDePeligrosidad())
+
+    embalajeDeSeguridad.embalar(knightRider)
+    assert.equals(500, embalajeDeSeguridad.peso())
+    assert.equals(5, embalajeDeSeguridad.nivelDePeligrosidad())
+
+    bumblebee.tranformacion(auto)
+    embalajeDeSeguridad.embalar(bumblebee)
+    assert.equals(800, embalajeDeSeguridad.peso())
+    assert.equals(7.5, embalajeDeSeguridad.nivelDePeligrosidad())
+}
 }
 
 
