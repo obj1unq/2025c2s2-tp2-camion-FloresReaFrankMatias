@@ -1,6 +1,12 @@
 object knightRider {
 	method peso() { return 500 }
 	method nivelDePeligrosidad() { return 10 }
+	method bultos() {
+	  return 1
+	}
+	method accidentarse() {
+	  return null
+	}
 }
 
 
@@ -13,6 +19,13 @@ object arenaAGranel {
 	method pesoEsPar() {
 	  return self.peso() % 2 ==0
 	}
+	method bultos() {
+	  return 1
+	}
+	method accidentarse() {
+	  peso = peso + 20
+	}
+
 }
 
 
@@ -31,6 +44,17 @@ object bumblebee {
 	method pesoEsPar() {
 	  return self.peso() % 2 ==0
 	}
+	method bultos() {
+	  return  2
+	}
+	method accidentarse() {
+	  if(self.estaTransformadoEn(auto)){
+		tranformacion= robot
+	  }
+	  else{
+		tranformacion = auto
+	  }
+	}
 }
 object paqueteDeLadrillos {
   var pesoLadrillo = 2
@@ -44,7 +68,16 @@ object paqueteDeLadrillos {
 	method pesoEsPar() {
 	  return self.peso() % 2 ==0
 	}
+	method bultos() {
+	  return if(cantLadrillos <= 100) 1
+             else if(cantLadrillos >= 101&& cantLadrillos <= 300) 2
+			 else 3	
+	}
+	method accidentarse() {
+	  	 cantLadrillos = (cantLadrillos - 12).max(0)
+	}
 
+	
 }
 
 
@@ -62,6 +95,16 @@ object bateriaAntiAerea {
 	method pesoEsPar() {
 	  return self.peso() % 2 ==0
 	}
+	method bultos() {
+	  return if(tieneMisiles) 2
+	         else 1
+	}
+	method accidentarse() {
+		self.descargarMisles()
+	}
+	method descargarMisles() {
+	  tieneMisiles = false
+	}
 }
 
 object residuosRadioactivos {
@@ -71,6 +114,13 @@ object residuosRadioactivos {
 	}
 	method pesoEsPar() {
 	  return self.peso() % 2 ==0
+	}
+	method bultos() {
+		return 1	
+	  
+	}
+	method accidentarse() {
+	  peso += 15
 	}
 }
 
@@ -99,6 +149,12 @@ object contenedorPortuario {
   method peligrosidadDeLaCosaMasPeligrosa() {
 	return self.peligrosidadDelasCosas().max()
   }
+  method bultos() {
+	return 1 + cosas.sum({cosa => cosa.bultos()})
+  }
+  method accidentarse() {
+	return cosas.forEach({cosa => cosa.accidentarse()})
+  }
 }
 
 object embalajeDeSeguridad {
@@ -112,7 +168,12 @@ object embalajeDeSeguridad {
 	method embalar(unaCosa) {
 	  cosaEmbalada = unaCosa
 	}
-
+	method bultos() {
+	  return 2
+	}
+	method accidentarse() {
+	  return null
+	}
 }
 
 
