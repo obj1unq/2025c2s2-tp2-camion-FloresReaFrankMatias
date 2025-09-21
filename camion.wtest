@@ -1,7 +1,7 @@
 import cosas.*
 import camion.*
 
-describe "name" {
+describe "Test desde Carga y Descarga hasta Peso de todas las cosas  " {
   test "Carga y descargar a bumblebee y knightRider" {
     camion.cargar(bumblebee)
     assert.equals(#{bumblebee}, camion.cosas())
@@ -27,7 +27,7 @@ describe "name" {
     assert.that(camion.tieneUnaCosaConPeso(800))
     assert.notThat(camion.tieneUnaCosaConPeso(500))
   }
-  test "Si el camion esta o no escedido de peso, primeo con 300 y despues con 400 ladrillos mas bee" {
+  test "Si el camion esta o no escedido de peso, primero con 300 y despues con 400 ladrillos mas bumblebee" {
     camion.cargar(bumblebee)
     paqueteDeLadrillos.cantLadrillos(300)
     camion.cargar(paqueteDeLadrillos)
@@ -37,7 +37,7 @@ describe "name" {
     assert.equals(2600, camion.pesoTotal())
     assert.that(camion.estaExcedidoDePeso())
   }
-  test "El de lnivel" {
+  test "El del nivel" {
     bumblebee.tranformacion(auto)
     camion.cargar(bumblebee)
     camion.cargar(bateriaAntiAerea)
@@ -134,7 +134,9 @@ test "Peso de todas las cosas de camion" {
   assert.equals([800,600], camion.pesosDeTodasLasCosas())
 }
 
-test "Total bultos :Caso 1" {
+}
+describe "Bultos totales"{ 
+  test "Total bultos :Caso 1" {
     camion.cargar(knightRider)
     camion.cargar(bumblebee)
     embalajeDeSeguridad.embalar(residuosRadioactivos)
@@ -147,23 +149,23 @@ test "Total bultos :Caso 1" {
     bateriaAntiAerea.tieneMisiles(false)
 
     assert.equals(9, camion.totalBultos())
-}
-test "Total bultos :Caso 2" {
+  }
+  test "Total bultos :Caso 2" {
     paqueteDeLadrillos.cantLadrillos(150)
     camion.cargar(paqueteDeLadrillos)
     camion.cargar(bateriaAntiAerea)
     bateriaAntiAerea.tieneMisiles(true)
     camion.cargar(contenedorPortuario)
     assert.equals(5, camion.totalBultos())
-}
+  }
 
-test "Total bultos: Caso 3" {
+  test "Total bultos: Caso 3" {
   camion.cargar(paqueteDeLadrillos)
   paqueteDeLadrillos.cantLadrillos(350)
   camion.cargar(arenaAGranel)
 
   assert.equals(4, camion.totalBultos())
-}
+  }
 
 }
 
@@ -182,7 +184,7 @@ describe "Accidente" {
     paqueteDeLadrillos.cantLadrillos(100)
     camion.cargar(paqueteDeLadrillos)
     camion.cargar(bateriaAntiAerea)
-    bateriaAntiAerea.descargarMisles()
+    bateriaAntiAerea.tieneMisiles(false)
 
     //Accidentarse
     camion.accidentar()
@@ -196,7 +198,7 @@ describe "Accidente" {
     bumblebee.tranformacion(robot)
     residuosRadioactivos.peso(30)
     paqueteDeLadrillos.cantLadrillos(10)
-    bateriaAntiAerea.descargarMisles()
+    bateriaAntiAerea.tieneMisiles(false)
 
     camion.cargar(bumblebee)
     camion.cargar(residuosRadioactivos)

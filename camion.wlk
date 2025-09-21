@@ -94,12 +94,18 @@ object camion {
 	
 
 
-	method validarCamino(camino){
-		if (not self.puedeCircularEnRuta(camino.nivelPeligrosidadPermitido())
-			 || self.pesoTotal() > camino.pesoMaximoPermitido()){
-			self.error("No se puede transportar por los caminos")
-		}
+	
+	method validarCamino(camino) {
+	  if(not camino.soportaViajeDe(self) ){ 
+		self.error("No se puede transportar por el camino" +" " + camino)
+	  }
 	}
+	//method validarCamino(camino){
+	//	if (not self.puedeCircularEnRuta(camino.nivelPeligrosidadPermitido())
+	//		 || self.pesoTotal() > camino.pesoMaximoPermitido()){
+	//		self.error("No se puede transportar por los caminos")
+	//	}
+	//}	
 }
 
 object almacen {
@@ -120,12 +126,18 @@ object caminosVecinales {
   method nivelPeligrosidadPermitido() {
 		return 100
 	}
+	method soportaViajeDe(vehiculo) {
+	  return vehiculo.pesoTotal() <= pesoMaximoPermitido
+	}
 }
 
 object ruta9 {
 	 var property pesoMaximoPermitido = 10000
 	method nivelPeligrosidadPermitido() {
 		return 20
+	}
+	method soportaViajeDe(vehiculo) {
+	  return  vehiculo.puedeCircularEnRuta(self.nivelPeligrosidadPermitido())
 	}
 }
 

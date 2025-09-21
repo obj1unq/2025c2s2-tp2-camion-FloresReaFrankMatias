@@ -100,11 +100,9 @@ object bateriaAntiAerea {
 	         else 1
 	}
 	method accidentarse() {
-		self.descargarMisles()
+		tieneMisiles = false
 	}
-	method descargarMisles() {
-	  tieneMisiles = false
-	}
+	
 }
 
 object residuosRadioactivos {
