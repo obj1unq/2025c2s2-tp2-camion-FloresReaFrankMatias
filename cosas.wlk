@@ -40,7 +40,7 @@ object robot {
 }
 //-------------------------
 object paqueteDeLadrillos {
-  var pesoLadrillo = 2
+  const pesoLadrillo = 2
   var property  cantLadrillos = 0 
 
 	method peso()                {	return pesoLadrillo * cantLadrillos	  }
